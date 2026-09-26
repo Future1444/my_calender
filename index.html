@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تقویم شمسی</title>
+  
+  <!-- استایل تقویم شمسی از CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      font-family: Tahoma, 'Vazirmatn', sans-serif;
+      overflow: hidden;
+    }
+    /* استایل ظرف تقویم برای هماهنگی با کادر iframe */
+    #calendar-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .pwt-datepicker-inline {
+      border: none !important;
+      box-shadow: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- کانتینر تقویم -->
+  <div id="calendar-container">
+    <div id="calendar-view"></div>
+  </div>
+
+  <!-- اسکریپت‌های مورد نیاز طبق مستندات (jQuery + PersianDate + PersianDatePicker) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#calendar-view").pDatepicker({
+        inline: true,              // نمایش دائمی تقویم در صفحه
+        viewMode: 'day',           // حالت نمایش ماهانه و روزانه
+        initialValue: true,        // انتخاب خودکار تاریخ امروز
+        responsive: true,
+        calendar: {
+          persian: {
+            locale: 'fa',          // نمایش اعداد و ماه به فارسی
+            showHint: true
+          }
+        },
+        toolbox: {
+          calendarSwitch: {
+            enabled: false         // غیرفعال کردن سوییچ به میلادی جهت سادگی
+          },
+          todayButton: {
+            enabled: true,
+            text: {
+              fa: "برو به امروز"
+            }
+          }
+        },
+        navigator: {
+          scroll: {
+            enabled: false
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
