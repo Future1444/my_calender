@@ -3,99 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تقویم شمسی</title>
+  <title>تقویم حرفه‌ای</title>
   
-  <!-- استایل‌های تقویم -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
 
   <style>
     :root {
-      --persian-green: #00A86B;
-      --persian-green-dark: #008756;
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      --primary-color: #00A86B; /* رنگ سبز ایرانی */
+      --bg-color: #ffffff;
     }
     body, html {
-      width: 100%;
-      height: 100%;
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #f8fafc;
-      font-family: Tahoma, 'Vazirmatn', sans-serif;
-      overflow: hidden;
+      background-color: var(--bg-color);
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
     }
-    #calendar-container {
-      width: 100%;
-      max-width: 380px;
-      padding: 12px;
-    }
-    /* زیباسازی کادر تقویم */
-    .datepicker-plot-area-inline-view {
+
+    /* تنظیمات اختصاصی برای پر کردن فضا و زیبایی */
+    .pwt-datepicker-inline {
+      border: none !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+      border-radius: 12px !important;
       width: 100% !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 16px !important;
-      box-shadow: 0 10px 25px -5px rgba(0, 168, 107, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
-      overflow: hidden !important;
-      background: #ffffff !important;
+      max-width: 400px; /* برای جلوگیری از کشیدگی بیش از حد در نمایشگرهای بزرگ */
     }
-    /* هدر و ماه */
-    .datepicker-plot-area .datepicker-header {
-      background: var(--persian-green) !important;
-      border-bottom: none !important;
-      padding: 10px 0 !important;
+
+    /* اعمال رنگ سبز ایرانی به المان‌های کلیدی */
+    .pwt-datepicker-calendar-day-selected, 
+    .pwt-datepicker-calendar-day-today {
+      background-color: var(--primary-color) !important;
+      color: #fff !important;
     }
-    .datepicker-plot-area .datepicker-header .btn-next,
-    .datepicker-plot-area .datepicker-header .btn-switch,
-    .datepicker-plot-area .datepicker-header .btn-prev {
-      color: #ffffff !important;
-      font-weight: bold !important;
-    }
-    /* دکمه امروز و انتخاب شده */
-    .datepicker-plot-area .datepicker-day-view .table-days td.today span {
-      background-color: #e6f7f0 !important;
-      color: var(--persian-green) !important;
-      font-weight: bold !important;
-      border-radius: 50% !important;
-      border: 1.5px solid var(--persian-green) !important;
-    }
-    .datepicker-plot-area .datepicker-day-view .table-days td.selected span {
-      background-color: var(--persian-green) !important;
-      color: #ffffff !important;
-      border-radius: 50% !important;
-    }
-    .datepicker-plot-area .datepicker-day-view .table-days td span:hover {
-      background-color: #e6f7f0 !important;
-      color: var(--persian-green-dark) !important;
-      border-radius: 50% !important;
-    }
-    /* روزهای هفته و جمعه */
-    .datepicker-plot-area .datepicker-day-view .month-grid-stat .header-row span {
-      color: #64748b !important;
-      font-weight: 600 !important;
-    }
-    .datepicker-plot-area .datepicker-day-view .table-days td.friday span {
-      color: #ef4444 !important;
-    }
-    /* تولبار پایین */
-    .datepicker-plot-area .datepicker-navigator {
-      background: #fafafa !important;
-      border-top: 1px solid #f1f5f9 !important;
+    .pwt-datepicker-calendar-header {
+      background-color: var(--primary-color) !important;
+      color: #fff !important;
     }
   </style>
 </head>
 <body>
 
-  <div id="calendar-container">
-    <div id="calendar-view"></div>
-  </div>
+  <div id="calendar-view"></div>
 
-  <!-- اسکریپت‌ها با CDNهای اصلاح‌شده و معتبر -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/js/persian-date.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
 
   <script type="text/javascript">
@@ -105,29 +58,9 @@
         viewMode: 'day',
         initialValue: true,
         responsive: true,
-        calendar: {
-          persian: {
-            locale: 'fa',
-            showHint: true
-          }
-        },
-        toolbox: {
-          enabled: true,
-          calendarSwitch: {
-            enabled: false
-          },
-          todayButton: {
-            enabled: true,
-            text: {
-              fa: "امروز"
-            }
-          }
-        },
-        navigator: {
-          scroll: {
-            enabled: false
-          }
-        }
+        calendar: { persian: { locale: 'fa', showHint: true } },
+        toolbox: { enabled: true, calendarSwitch: { enabled: false } },
+        navigator: { scroll: { enabled: false } }
       });
     });
   </script>
