@@ -3,80 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تقویم شمسی</title>
+  <title>تقویم حرفه‌ای</title>
   
-  <!-- استایل تقویم شمسی از CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --primary-color: #00A86B; /* رنگ سبز ایرانی */
+      --bg-color: #ffffff;
     }
     body, html {
-      width: 100%;
-      height: 100%;
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #ffffff;
-      font-family: Tahoma, 'Vazirmatn', sans-serif;
-      overflow: hidden;
+      background-color: var(--bg-color);
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
     }
-    /* استایل ظرف تقویم برای هماهنگی با کادر iframe */
-    #calendar-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+
+    /* تنظیمات اختصاصی برای پر کردن فضا و زیبایی */
     .pwt-datepicker-inline {
       border: none !important;
-      box-shadow: none !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+      border-radius: 12px !important;
+      width: 100% !important;
+      max-width: 400px; /* برای جلوگیری از کشیدگی بیش از حد در نمایشگرهای بزرگ */
+    }
+
+    /* اعمال رنگ سبز ایرانی به المان‌های کلیدی */
+    .pwt-datepicker-calendar-day-selected, 
+    .pwt-datepicker-calendar-day-today {
+      background-color: var(--primary-color) !important;
+      color: #fff !important;
+    }
+    .pwt-datepicker-calendar-header {
+      background-color: var(--primary-color) !important;
+      color: #fff !important;
     }
   </style>
 </head>
 <body>
 
-  <!-- کانتینر تقویم -->
-  <div id="calendar-container">
-    <div id="calendar-view"></div>
-  </div>
+  <div id="calendar-view"></div>
 
-  <!-- اسکریپت‌های مورد نیاز طبق مستندات (jQuery + PersianDate + PersianDatePicker) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/js/persian-date.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
       $("#calendar-view").pDatepicker({
-        inline: true,              // نمایش دائمی تقویم در صفحه
-        viewMode: 'day',           // حالت نمایش ماهانه و روزانه
-        initialValue: true,        // انتخاب خودکار تاریخ امروز
+        inline: true,
+        viewMode: 'day',
+        initialValue: true,
         responsive: true,
-        calendar: {
-          persian: {
-            locale: 'fa',          // نمایش اعداد و ماه به فارسی
-            showHint: true
-          }
-        },
-        toolbox: {
-          calendarSwitch: {
-            enabled: false         // غیرفعال کردن سوییچ به میلادی جهت سادگی
-          },
-          todayButton: {
-            enabled: true,
-            text: {
-              fa: "برو به امروز"
-            }
-          }
-        },
-        navigator: {
-          scroll: {
-            enabled: false
-          }
-        }
+        calendar: { persian: { locale: 'fa', showHint: true } },
+        toolbox: { enabled: true, calendarSwitch: { enabled: false } },
+        navigator: { scroll: { enabled: false } }
       });
     });
   </script>
